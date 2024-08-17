@@ -25,7 +25,7 @@ int execute(char **args)
 	}
 	else if (pid == 0)
 	{
-		if (execvp(args[0], args) == -1)
+		if (execve(args[0], args, environ) == -1)
 		{
 			perror("hsh");
 			exit(EXIT_FAILURE);

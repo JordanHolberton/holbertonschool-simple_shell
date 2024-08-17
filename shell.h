@@ -9,6 +9,8 @@
 #include <sys/wait.h>
 #include <errno.h>
 
+extern char **environ;
+
 void shell_loop(void);
 char *read_line(void);
 char **split_line(char *line);
