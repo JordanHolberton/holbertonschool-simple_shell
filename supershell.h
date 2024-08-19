@@ -11,11 +11,25 @@
 
 extern char **environ;
 
+/**
+ * Structure definition of path_node_t
+ */
+
+typedef struct path_node
+{
+	char *dir;
+	struct path_node *next;
+} path_node_t;
+
+/**
+ * Main declaration
+ */
+
 int main(int ac, char **av);
-int main(int ac, char **av, char **env);
-int main(void);
-int main (int argc, char* argv[]);
-int main();
+
+/**
+ * Declaration protos
+ */
 
 int _setenv(const char *name, const char *value, int overwrite);
 int check_file_status(const char *file_path);
@@ -41,10 +55,8 @@ void parent_process(pid_t child_pid);
 void print_process_info(const char* process_type);
 void parent_process(int child_id);
 void process_files(int argc, char *argv[]);
-void print_environment(void);
 void print_prompt();
 void free_words(char **words, int word_count);
-void print_usage(const char *program_name);
 void execute_command(char *command);
 
 
