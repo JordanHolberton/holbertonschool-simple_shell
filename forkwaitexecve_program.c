@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+#include "supershell.h"
 
 /**
  * handle_fork_error - Function to handle errors from fork
