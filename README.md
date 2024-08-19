@@ -114,7 +114,7 @@ Simple shell 0.4 +
 
     Implement the env built-in, that prints the current environment
 
-## Task 9 
+## Task 9
 
 Simple shell 0.1 +
 
