@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "supershell.h"
 
 /**
  * struct path_node - Node structure for the linked list of PATH directories.
