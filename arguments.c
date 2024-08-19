@@ -16,7 +16,8 @@ void print_usage(const char *program_name)
 void print_arguments(char **av)
 {
 	printf("Arguments:\n");
-	while (*av != NULL) {
+	while (*av != NULL)
+	{
 		printf("%s\n", *av);
 		av++;
 	}
@@ -36,7 +37,8 @@ int main(int ac, char **av)
 	/**
 	 * Check if no arguments are provided
 	 */
-	if (av[1] == NULL) {
+	if (av[1] == NULL)
+	{
 		print_usage(av[0]);
 		return 1;
 	}
