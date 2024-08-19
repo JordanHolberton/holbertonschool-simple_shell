@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "supershell.h"
 
 /**
  * _unsetenv - Deletes an environment variable.
