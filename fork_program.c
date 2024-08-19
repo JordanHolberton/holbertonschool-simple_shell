@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
+#include "supershell.h"
 
 /**
  * print_before_fork - Function to print a message before calling fork
