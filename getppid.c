@@ -45,6 +45,9 @@ void parent_process(int child_id)
 
 int main (int argc, char* argv[])
 {
+	(void)argc;
+	(void)argv;
+
 	int id = fork();
 	if (id == 0)
 	{
