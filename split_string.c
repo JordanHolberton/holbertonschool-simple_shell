@@ -1,8 +1,18 @@
 #include "supershell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /**
  * Function to split a string into words
  */
+
+char** split_string(const char *str, const char *delim, int *word_count);
+
+/**
+ * Function to free the array of words
+ */
+void free_words(char **words, int word_count);
 
 char** split_string(const char *str, const char *delim, int *word_count)
 {
@@ -35,6 +45,7 @@ char** split_string(const char *str, const char *delim, int *word_count)
 
 	char *token = strtok(str_copy, delim);
 	int count = 0;
+	int i;
 
 	while (token != NULL)
 	{
@@ -48,7 +59,7 @@ char** split_string(const char *str, const char *delim, int *word_count)
 			/**
 			 * Free previously allocated words and the string copy
 			 */
-			for (int i = 0; i < count; i++)
+			for (i = 0; i < count; i++)
 			{
 				free(words[i]);
 			}
@@ -73,7 +84,7 @@ char** split_string(const char *str, const char *delim, int *word_count)
 			/**
 			 * Free previously allocated words and the string copy
 			 */
-			for (int i = 0; i < count; i++)
+			for (i = 0; i < count; i++)
 			{
 				free(words[i]);
 			}
@@ -101,7 +112,9 @@ char** split_string(const char *str, const char *delim, int *word_count)
 
 void free_words(char **words, int word_count)
 {
-	for (int i = 0; i < word_count; i++)
+	int i;
+
+	for (i = 0; i < word_count; i++)
 	{
 		free(words[i]);
 	}
@@ -117,6 +130,7 @@ int main()
 	const char *str = "This is a test string";
 	const char *delim = " ";
 	int word_count = 0;
+	int i;
 
 	char **words = split_string(str, delim, &word_count);
 	if (words == NULL)
@@ -128,7 +142,7 @@ int main()
 	/**
 	 * Print the words
 	 */
-	for (int i = 0; i < word_count; i++)
+	for (i = 0; i < word_count; i++)
 	{
 		printf("Word %d: %s\n", i + 1, words[i]);
 	}

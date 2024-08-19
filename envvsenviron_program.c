@@ -1,4 +1,5 @@
 #include "supershell.h"
+#include <stdio.h>
 
 /**
  * print_address - Prints the address of a variable.

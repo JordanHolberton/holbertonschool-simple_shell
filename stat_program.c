@@ -1,4 +1,7 @@
 #include "supershell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/stat.h>
 
 /**
  * print_usage - Prints the usage of the program.
@@ -40,7 +43,9 @@ int check_file_status(const char *file_path)
 
 void process_files(int argc, char *argv[])
 {
-	for (int i = 1; i < argc; i++)
+	int i;
+
+	for (i = 1; i < argc; i++)
 	{
 		check_file_status(argv[i]);
 	}

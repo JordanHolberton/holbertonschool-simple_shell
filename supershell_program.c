@@ -1,4 +1,9 @@
 #include "supershell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 /**
  * print_prompt - Function to print the shell prompt
@@ -109,7 +114,14 @@ int main(void)
 		/**
 		 * Remove the newline character from the command
 		 */
-		command[strcspn(command, "\n")] = 0;
+		for (size_t i = 0; command[i] != '\0'; i++)
+		{
+			if (command[i] == '\n')
+			{
+				command[i] = '\0';
+				break;
+			}
+		}
 
 		if (strlen(command) > 0)
 		{

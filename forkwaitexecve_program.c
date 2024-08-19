@@ -1,4 +1,9 @@
 #include "supershell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 /**
  * handle_fork_error - Function to handle errors from fork
@@ -29,6 +34,7 @@ void child_process()
 	if (execve(argv[0], argv, NULL) == -1)
 	{
 		handle_execve_error(argv[0]);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -50,8 +56,10 @@ void parent_process(pid_t child_pid)
 int main(void)
 {
 	const int num_children = 5;
+	int i;
+	pid_t child_pid;
 
-	for (int i = 0; i < num_children; i++)
+	for (i = 0; i < num_children; i++)
 	{
 		pid_t child_pid = fork();
 		if (child_pid == -1)

@@ -1,4 +1,5 @@
 #include "supershell.h"
+#include <stdio.h>
 
 /**
  * print_environment - Prints the environment variables.

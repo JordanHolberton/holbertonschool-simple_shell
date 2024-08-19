@@ -1,17 +1,7 @@
 #include "supershell.h"
-
-/**
- * struct path_node - Node structure for the linked list of PATH directories.
- * @dir: The directory path.
- * @next: Pointer to the next node.
- */
-
-typedef struct path_node
-{
-	char *dir;
-	struct path_node *next;
-}
-path_node_t;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /**
  * _getenv - Gets the value of an environment variable.
@@ -26,6 +16,7 @@ char *_getenv(const char *name)
 	char *env_var;
 	char *value;
 	size_t name_len;
+	int i;
 
 	if (name == NULL || environ == NULL)
 	{
@@ -34,7 +25,7 @@ char *_getenv(const char *name)
 
 	name_len = strlen(name);
 
-	for (int i = 0; environ[i] != NULL; i++)
+	for (i = 0; environ[i] != NULL; i++)
 	{
 		env_var = environ[i];
 
@@ -183,7 +174,8 @@ int main(int ac, char **av)
 	(void)ac; /* Unused parameter */
 	(void)av; /* Unused parameter */
 
-	path_node_t *path_list = build_path_list();
+	path_node_t *path_list;
+	path_node_t = build_path_list();
 	if (path_list != NULL)
 	{
 		print_path_list(path_list);

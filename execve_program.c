@@ -1,4 +1,7 @@
 #include "supershell.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 
 /**
  * print_before_execve -  Function to print a message before calling execve

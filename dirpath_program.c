@@ -1,4 +1,7 @@
 #include "supershell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /**
  * _getenv - Gets the value of an environment variable.

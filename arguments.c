@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "supershell.h"
 
 /**

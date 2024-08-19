@@ -1,5 +1,10 @@
 #include "supershell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
+extern char **environ;
 /**
  * _getenv - Gets the value of an environment variable.
  * @name: The name of the environment variable.
@@ -9,10 +14,10 @@
 
 char *_getenv(const char *name)
 {
-	extern char **environ;
 	char *env_var;
 	char *value;
 	size_t name_len;
+	int i;
 
 	if (name == NULL || environ == NULL)
 	{
@@ -21,7 +26,7 @@ char *_getenv(const char *name)
 
 	name_len = strlen(name);
 
-	for (int i = 0; environ[i] != NULL; i++)
+	for (i = 0; environ[i] != NULL; i++)
 	{
 		env_var = environ[i];
 
