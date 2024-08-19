@@ -2,7 +2,7 @@
 
 /**
  * shell_loop - Shell main loop.
- * This function displays a prompt 
+ * This function displays a prompt
  *
  * Return: nothing (void).
  */
