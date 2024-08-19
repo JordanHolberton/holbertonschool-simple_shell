@@ -175,6 +175,7 @@ int main(int ac, char **av)
 	(void)av; /* Unused parameter */
 
 	path_node_t *path_list;
+
 	path_node_t = build_path_list();
 	if (path_list != NULL)
 	{
