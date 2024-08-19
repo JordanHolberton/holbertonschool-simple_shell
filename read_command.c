@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "supershell.h"
 
 /**
  *  Function to print the prompt
