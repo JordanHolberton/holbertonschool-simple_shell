@@ -13,7 +13,7 @@ char *read_line(void)
 
 	if (getline(&line, &bufsize, stdin) == -1)
 	{
-		if (feof(stdin))
+		if (_feof(stdin))
 		{
 			exit(EXIT_SUCCESS); /* Sortie en cas de EOF */
 		}

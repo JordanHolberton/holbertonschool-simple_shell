@@ -19,5 +19,6 @@ int execute(char **args);
 void error_printing(char *msg);
 char *str_concat(char *s1, char *s2);
 int _strcmp(char *s1, char *s2);
+int _feof(FILE *stream);
 
 #endif
