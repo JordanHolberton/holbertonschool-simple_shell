@@ -13,7 +13,9 @@ void shell_loop(void)
 	int status;
 
 	do {
-		printf("$ "); /* Prompt */
+		if (isatty(STDIN_FILENO))
+			printf("$ "); /* Prompt */
+		
 		line = read_line();
 		args = split_line(line);
 		status = execute(args);
