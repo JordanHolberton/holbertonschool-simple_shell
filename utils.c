@@ -11,6 +11,13 @@ void error_printing(char *msg)
 	perror(msg);
 }
 
+/**
+ * str_concat - Concatenates two string
+ * @s1: the first string
+ * @s2: the second string
+ *
+ * Return: a pointer to the newly allocated string
+ */
 char *str_concat(char *s1, char *s2)
 {
 	char *result;
@@ -25,6 +32,13 @@ char *str_concat(char *s1, char *s2)
 	return (result);
 }
 
+/**
+ * _strcmp - Compares two strings.
+ * @s1: The first string.
+ * @s2: The two string.
+ *
+ * Return: An integer less than, equal to, or greater than 0 if s1 if found.
+ */
 int _strcmp(char *s1, char *s2)
 {
 	while (*s1 && *s1 == *s2)
