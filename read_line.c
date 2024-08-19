@@ -1,28 +1,90 @@
 #include "shell.h"
 
+char *allocate_buffer(size_t bufsize);
+void handle_read_error(char *buffer);
+char *resize_buffer(char *buffer, size_t *bufsize);
+
 /**
  * read_line - Reads a line from standard input.
- * This function use 'getline' to read a complete line
+ * This function uses 'read' to manually read a complete line.
  *
- * Return: line
+ * Return: The line read from stdin.
  */
 char *read_line(void)
 {
-	char *line = NULL;
-	size_t bufsize = 0;
+	size_t bufsize = 1024, position = 0;
+	char *buffer = allocate_buffer(bufsize);
+	int c;
 
-	if (getline(&line, &bufsize, stdin) == -1)
+	while (1)
 	{
-		if (feof(stdin))
+		c = read(STDIN_FILENO, &buffer[position], 1);
+		if (c == -1)
+			handle_read_error(buffer);
+		else if (c == 0)
 		{
-			exit(EXIT_SUCCESS); /* Sortie en cas de EOF */
+			if (position == 0)
+				exit(EXIT_SUCCESS);
+			break;
 		}
-		else
-		{
-			perror("readline");
-			exit(EXIT_FAILURE);
-		}
+		else if (buffer[position++] == '\n')
+			break;
+
+		if (position >= bufsize)
+			buffer = resize_buffer(buffer, &bufsize);
 	}
 
-	return (line);
+	buffer[position] = '\0';
+	return (buffer);
 }
+
+/**
+ * allocate_buffer - Allocates a buffer for reading input.
+ * @bufsize: The initial size of the buffer to allocate.
+ *
+ * Return: A pointer to the allocated buffer.
+ */
+char *allocate_buffer(size_t bufsize)
+{
+	char *buffer = malloc(bufsize);
+
+	if (!buffer)
+	{
+		perror("Unable to allocate buffer");
+		exit(EXIT_FAILURE);
+	}
+	return (buffer);
+}
+
+/**
+ * handle_read_error - Handles errors during reading from stdin.
+ * @buffer: The buffer to free before exiting.
+ *
+ * Return: This function does not return as it exits the program.
+ */
+void handle_read_error(char *buffer)
+{
+	perror("read");
+	free(buffer);
+	exit(EXIT_FAILURE);
+}
+
+/**
+ * resize_buffer - Resizes the buffer when more space is needed.
+ * @buffer: The current buffer to resize.
+ * @bufsize: A pointer to the current buffer size, which will be updated.
+ *
+ * Return: A pointer to the resized buffer.
+ */
+char *resize_buffer(char *buffer, size_t *bufsize)
+{
+	*bufsize += 1024;
+	buffer = realloc(buffer, *bufsize);
+	if (!buffer)
+	{
+		perror("Unable to reallocate buffer");
+		exit(EXIT_FAILURE);
+	}
+	return (buffer);
+}
+
