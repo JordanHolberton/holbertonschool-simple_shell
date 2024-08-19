@@ -1,7 +1,4 @@
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdio.h>
+#include "supershell.h"
 
 /**
  * Function to print the process IDs
