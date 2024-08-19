@@ -59,4 +59,6 @@ char** split_string(const char *str, const char *delim, int *word_count);
 path_node_t *create_path_node(const char *dir);
 path_node_t *build_path_list(void);
 
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+
 #endif
