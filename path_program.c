@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 /**
  * print_usage - Prints the usage of the program.
@@ -12,7 +13,7 @@
 
 void print_usage(const char *program_name)
 {
-	printf("Usage: %s filename ...\n", program_name);
+	printf("Usage: %s\n", program_name);
 }
 
 /**
@@ -92,34 +93,38 @@ char *find_file_in_path(const char *path, const char *filename)
 }
 
 /**
- * process_files - Processes the list of files to find in the PATH.
- * @argc: The number of arguments.
- * @argv: The list of arguments.
+ * execute_command - Executes a command.
+ * @command: The command to execute.
+ * @path: The PATH environment variable.
  */
 
-void process_files(int argc, char *argv[])
+void execute_command(const char *command, const char *path)
 {
-	char *path, *full_path;
-
-	path = get_path();
-	if (!path)
+	char *full_path = find_file_in_path(path, command);
+	if (full_path)
 	{
-		fprintf(stderr, "PATH environment variable not set\n");
-		return;
-	}
-
-	for (int i = 1; i < argc; i++)
-	{
-		full_path = find_file_in_path(path, argv[i]);
-		if (full_path)
+		pid_t pid = fork();
+		if (pid == 0)
 		{
-			printf("%s\n", full_path);
-			free(full_path);
+			/* Child process */
+			execl(full_path, command, (char *)NULL);
+			perror("execl");
+			exit(EXIT_FAILURE);
+		}
+		else if (pid > 0)
+		{
+			/* Parent process */
+			wait(NULL);
 		}
 		else
 		{
-			printf("%s: NOT FOUND\n", argv[i]);
+			perror("fork");
 		}
+		free(full_path);
+	}
+	else
+	{
+		printf("%s: command not found\n", command);
 	}
 }
 
