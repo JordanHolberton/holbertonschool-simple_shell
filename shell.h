@@ -13,6 +13,9 @@ char **split_line(char *line);
 int execute(char **args);
 void print_env(void);
 char *find_command_path(char *cmd);
+char *_getenv(const char *name);
+char *_strdup(const char *str);
+int _snprintf(char *buf, size_t size, const char *format, ...);
 
 #endif /* SHELL_H */
 

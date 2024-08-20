@@ -12,11 +12,11 @@ char *find_command_path(char *cmd)
 	char *full_path;
 	int len;
 
-	path = getenv("PATH");
+	path = _getenv("PATH");
 	if (path == NULL)
 		return (NULL);
 
-	path_copy = strdup(path);
+	path_copy = _strdup(path);
 	if (path_copy == NULL)
 		return (NULL);
 
