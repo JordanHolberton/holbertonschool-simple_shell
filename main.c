@@ -1,20 +1,34 @@
 #include "shell.h"
 
 /**
- * main - principal entry of the shell.
- * This function ignore the arguments with (void)
- * It call shell_loop()
- * @argc: Number of arguments.
- * @argv: Array of arguments.
+ * main - Entry point for the simple shell.
  *
- * Return: Always `EXIT_SUCCESS`.
+ * Return: 0 on success, or exit status on failure.
  */
-int main(int argc, char **argv)
+int main(void)
 {
-	(void)argc;
-	(void)argv;
+	char *line = NULL;
+	char **args;
+	size_t len = 0;
+	ssize_t nread;
+	int status = 1;
 
-	shell_loop();
+	while (status)
+	{
+		if (isatty(STDIN_FILENO))
+			printf("$ ");
+		nread = getline(&line, &len, stdin);
+		if (nread == -1)
+		{
+			free(line);
+			exit(EXIT_SUCCESS);
+		}
+		args = split_line(line);
+		status = execute(args);
+		free(args);
+	}
 
+	free(line);
 	return (EXIT_SUCCESS);
 }
+

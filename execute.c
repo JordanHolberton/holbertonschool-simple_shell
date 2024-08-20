@@ -1,47 +1,45 @@
 #include "shell.h"
 
 /**
- * execute - create a children processus for execute a program.
- * She create a new process with 'fork()'
- * Execute it with 'waitpid()', 'fork()' or 'execvp()'
- * @args: List of arguments passed to the command
+ * execute - Execute a command.
+ * @args: Null-terminated array of arguments.
  *
- * Return: 1 to continue shell execution.
+ * Return: 1 to continue execution, 0 to exit.
  */
-
 int execute(char **args)
 {
-	pid_t pid, wpid;
+	pid_t pid;
 	int status;
 
 	if (args[0] == NULL)
 		return (1);
 
-	pid = fork();
-	if (pid == -1)
+	if (strcmp(args[0], "exit") == 0)
+		return (0);
+	if (strcmp(args[0], "env") == 0)
 	{
-		perror("hsh");
+		print_env();
 		return (1);
 	}
-	else if (pid == 0)
+
+	pid = fork();
+	if (pid == 0)
 	{
-		if (execve(args[0], args, environ) == -1)
-		{
+		if (execvp(args[0], args) == -1)
 			perror("hsh");
-			exit(EXIT_FAILURE);
-		}
+		exit(EXIT_FAILURE);
+	}
+	else if (pid < 0)
+	{
+		perror("hsh");
 	}
 	else
 	{
 		do {
-			wpid = waitpid(pid, &status, WUNTRACED);
-		} while (wpid == -1 && errno == EINTR);
-
-		if (wpid == -1)
-		{
-			perror("waitpid");
-			return (1);
-		}
+			waitpid(pid, &status, WUNTRACED);
+		} while (!WIFEXITED(status) && !WIFSIGNALED(status));
 	}
+
 	return (1);
 }
+
