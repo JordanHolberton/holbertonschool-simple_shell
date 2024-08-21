@@ -1,0 +1,67 @@
+.\" Manpage for simple_shell
+.\" Contact Jordan Holberton <jordan.chatillon76@laposte.net>
+.TH SIMPLE_SHELL 1 "August 2024" "1.0" "Simple Shell Manual"
+.SH NAME
+simple_shell \- a simple Unix shell implementation
+.SH SYNOPSIS
+.B simple_shell
+.RI [ options ]
+.SH DESCRIPTION
+.B simple_shell
+is a simple Unix shell implementation that allows users to execute commands, manage processes, and handle basic shell operations. It is designed as a learning tool to demonstrate the functionality of a shell.
+
+.SH OPTIONS
+.TP
+.B \-h, \--help
+Display a help message with information about available commands and options.
+.TP
+.B \-v, \--version
+Show the version of the shell and exit.
+
+.SH COMMANDS
+The shell supports the following commands:
+
+.TP
+.B exit
+Exit the shell. You can provide an optional exit status.
+
+.TP
+.B cd [DIRECTORY]
+Change the current working directory to DIRECTORY. If no DIRECTORY is provided, change to the user's home directory.
+
+.TP
+.B help
+Display a brief help message with available commands and usage.
+
+.SH ENVIRONMENT VARIABLES
+The shell can use standard environment variables such as:
+
+.TP
+.B PATH
+Specifies the directories to search for executable files.
+
+.TP
+.B HOME
+Specifies the home directory of the current user.
+
+.SH FILES
+.TP
+.B ~/.simple_shell_history
+Contains the history of commands entered in the shell.
+
+.SH EXAMPLES
+.TP
+.B simple_shell
+Launches the simple shell.
+
+.TP
+.B simple_shell -h
+Displays help information.
+
+.SH AUTHORS
+Jordan Holberton <jordan.chatillon@laposte.net>
+
+.SH SEE ALSO
+.BR bash (1), 
+.BR zsh (1)
+
