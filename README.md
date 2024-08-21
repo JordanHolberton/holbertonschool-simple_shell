@@ -1,241 +1,127 @@
-# holbertonschool-simple_shell
+# Simple Shell
 
-## Compilation
+## Description
 
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+**Simple Shell** is a basic UNIX command interpreter written in C. This project is a part of the curriculum of the [Holberton School](https://www.holbertonschool.com/) and serves as an introduction to the concepts of system calls, processes, and the implementation of a simple shell in a UNIX-like environment.
 
-## List of allowed functions and systems calls+
+## Features
 
-All functions from string.h:
-   - `access` (man 2 access)
-   - `chdir` (man 2 chdir)
-   - `close` (man 2 close)
-   - `closedir` (man 3 closedir)
-   - `execve` (man 2 execve)
-   - `exit` (man 3 exit)
-   - `_exit` (man 2 _exit)
+- Basic command execution (with arguments)
+- Handle built-in commands: `exit`, `env`, ,etc..
+- Input redirection and command pipelines
+- Custom environment management
+- Interactive and non-interactive modes
 
-   - `fflush` (man 3 fflush)
-   - `fork` (man 2 fork)
-   - `free` (man 3 free)
-   - `getcwd` (man 3 getcwd)
-   - `getline` (man 3 getline)
-   - `getpid` (man 2 getpid)
-   - `isatty` (man 3 isatty)
-   - `kill` (man 2 kill)
-   - `malloc` (man 3 malloc)
-   - `open` (man 2 open)
-   - `opendir` (man 3 opendir)
-   - `perror` (man 3 perror)
-   - `printf` (man 3 printf)
-   - `fprintf` (man 3 fprintf)
-   - `vfprintf` (man 3 vfprintf)
-   - `sprintf` (man 3 sprintf)
-   - `putchar` (man 3 putchar)
-   - `read` (man 2 read)
-   - `readdir` (man 3 readdir)
-   - `signal` (man 2 signal)
-   - `stat` (__xstat) (man 2 stat)
+## Getting Started
 
-   - `lstat` (__lxstat) (man 2 lstat)
+### Prerequisites
 
-   - `fstat` (__fxstat) (man 2 fstat)
+To compile and run this shell, you need:
 
-   - `strtok` (man 3 strtok)
-   - `wait` (man 2 wait)
-   - `waitpid` (man 2 waitpid)
-   - `wait3` (man 2 wait3)
-   - `wait4` (man 2 wait4)
-   - `write` (man 2 write)
+- A UNIX-like operating system (Linux, macOS, etc.)
+- GCC compiler
 
-## Remarks
+### Installation
 
-This simple shell is not a real shell. If you wanna go deep for real shell, go KERNEL
+1. Clone this repository to your local machine:
 
-## Task 0
+   ```bash
+   git clone https://github.com/JordanHolberton/holbertonschool-simple_shell.git
+   ```
 
-Write a - `README`
-Write a man for your shell.
-You should have an - `AUTHORS` file at the root of your repository, listing all individuals having contributed content to the repository.
+2. Navigate to the project directory:
 
-## Task 1
+    ```bash
+    cd holbertonschool-simple_shell
+    ```
 
-Write a beautiful code that passes the Betty checks
+3. Compile the program:
 
-## Task 2
+    ```bash
+    gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
+    ```
 
-Write a `UNIX` command line interpreter.
+## Usage
 
-    Usage: simple_shell
-Your Shell should:
+You can run the shell in two modes:
 
-    Display a prompt and wait for the user to type a command. A command line always ends with a new line.
-    The prompt is displayed again each time a command has been executed.
-    The command lines are simple, no semicolons, no pipes, no redirections or any other advanced features.
-    The command lines are made only of one word. No arguments will be passed to programs.
-    If an executable cannot be found, print an error message and display the prompt again.
-    Handle errors.
-    You have to handle the (end of file) condition (Ctrl+D)
+### Interactive Mode
+   ```bash
+   ./hsh
+   ```
 
-You dont have to:
+You should see a prompt where you can type commands:
 
-    use the PATH
-    implement built-ins
-    handle special characters : ", ', `, \, *, &, #
-    be able to move the cursor
-    handle commands with arguments
+   ```sh
+   $ ./hsh
+   $ ls -l
+   total 48
+   -rw-r--r-- 1 user user  1373 Aug 20 10:10 README.md
+   -rwxr-xr-x 1 user user 14832 Aug 20 10:10 hsh
+   ```
 
-execve will be the core part of your Shell, dont forget to pass the environ to it
+### Non-Interactive Mode
 
-## Task 3
+In this mode, the shell reads commands from a file or pipe.
 
-Simple shell 0.1 +
+   ```bash
+   echo "ls -l" | ./hsh
+   ```
 
-    Handle command lines with arguments
+### Built-in Commands
 
-## Task 4
+The following built-in commands are supported:
 
-Simple shell 0.2 +
+- `exit` [status]: Exit the shell with an optional status.
+- `env`: Display the current environment variables.
+- `ls` : Displays the names of files and directories in the specified directory.
 
-    Handle the PATH
-    fork must not be called if the command doesnt exist
+### Exemple
 
-## Task 5
+   ```bash
+   $ ./hsh
+   $ pwd
+   /home/user/holbertonschool-simple_shell
+   $ exit
+   ```
 
-Simple shell 0.3 +
+### Files
 
-    Implement the exit built-in, that exits the shell
-    Usage: exit
-    You dont have to handle any argument to the built-in exit
+- **_snprintf.c**: Handles formatted output conversion.
+- **command_path.c**: Manages the command path resolution.
+- **env.c**: Provides functions for environment variable manipulation.
+- **execute.c**: Contains the logic for executing commands.
+- **main.c**: The main entry point for the shell program.
+- **shell.h**: Header file containing function prototypes and definitions.
+- **simple_shell.1**: Man page for the simple shell.
+- **split_line.c**: Handles the splitting of input lines into arguments.
 
-## Task 6
+### Use man in the shell
 
-Simple shell 0.4 +
+- Save the above content to a file named simple_shell.1.
+- Install the man page using the following command (requires superuser privileges):
 
-    Implement the env built-in, that prints the current environment
+    ```bash
+    sudo cp simple_shell.1 /usr/share/man/man1/
+    sudo mandb
+    ```
 
-## Task 9
+- View the man page with:
 
-Simple shell 0.1 +
+    ```bash
+    man simple_shell
+    ```
 
-    Write your own getline function
-    Use a buffer to read many chars at once and call the least possible the read system call
-    You will need to use static variables
-    You are not allowed to use getline
+## Contributing
 
-You dont have to:
+If you would like to contribute to this project, please open an issue or submit a pull request.
 
-    be able to move the cursor
+## Authors
 
-## Task 10
+- **Chatillon Jordan** - [JordanHolberton](https://github.com/JordanHolberton)
+- **David Vaucheret** - [CoeurdArcade](https://github.com/CoeurdArcade)
 
-Simple shell 0.2 +
+## Acknowledgements
 
-    You are not allowed to use strtok
-
-## Task 11
-
-Simple shell 0.4 +
-
-    handle arguments for the built-in exit
-    Usage: exit status, where status is an integer used to exit the shell
-
-## Task 12
-
-Simple shell 0.4 +
-
-    Handle Ctrl+C: your shell should not quit when the user inputs ^C
-
-man 2 signal.
-
-## Task 13
-
-Simple shell 1.0 +
-
-Implement the setenv and unsetenv builtin commands
-
-   - `setenv`
-        Initialize a new environment variable, or modify an existing one
-        Command syntax: setenv VARIABLE VALUE
-        Should print something on stderr on failure
-   - `unsetenv`
-        Remove an environment variable
-        Command syntax: unsetenv VARIABLE
-        Should print something on stderr on failure
-
-## Task 14
-
-Simple shell 1.0 +
-
-Implement the builtin command `cd`:
-
-    Changes the current directory of the process.
-    Command syntax: cd [DIRECTORY]
-    If no argument is given to cd the command must be interpreted like cd $HOME
-    You have to handle the command cd -
-    You have to update the environment variable PWD when you change directory
-
-man `chdir` man `getcwd`
-
-## Task 15
-
-Simple shell 1.0 +
-
-    Handle the commands separator ;
-
-## Task 16
-
-Simple shell 1.0 +
-
-    Handle the && and || shell logical operators
-
-## Task 17
-
-Simple shell 1.0 +
-
-    Implement the alias builtin command
-    Usage: alias [name[='value'] ...]
-        alias: Prints a list of all aliases, one per line, in the form name='value'
-        alias name [name2 ...]: Prints the aliases name, name2, etc 1 per line, in the form name='value'
-        alias name='value' [...]: Defines an alias for each name whose value is given. If name is already an alias, replaces its value with value
-
-## Task 18
-
-Simple shell 1.0 +
-
-    Handle variables replacement
-    Handle the $? variable
-    Handle the $$ variable
-
-## Task 19
-
-Simple shell 1.0 +
-
-    Handle comments (#)
-
-## Task 20
-
-Simple shell 1.0 +
-
-    Implement the help built-in
-    Usage: help [BUILTIN]
-
-## Task 21
-
-Simple shell 1.0 +
-
-    Implement the history built-in, without any argument
-    The history built-in displays the history list, one command by line, preceded with line numbers (starting at 0)
-    On exit, write the entire history, without line numbers, to a file named .simple_shell_history in the directory $HOME
-    When the shell starts, read the file .simple_shell_history in the directory $HOME if it exists, and set the first line number to the total number of lines in the file modulo 4096
-
-## Task 22
-
-Simple shell 1.0 +
-
-    Usage: simple_shell [filename]
-    Your shell can take a file as a command line argument
-    The file contains all the commands that your shell should run before exiting
-    The file should contain one command per line
-    In this mode, the shell should not print a prompt and should not read from stdin
-
+- **[Holberton School](https://www.holbertonschool.com/)** - For providing the guidance, support, and resources that made this project possible.
+- **Anzo Hitte** - [HitteAnzo](https://github.com/HitteAnzo)
