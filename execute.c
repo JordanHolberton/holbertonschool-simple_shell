@@ -22,7 +22,7 @@ int execute(char **args)
 	if (command_path == NULL)
 	{
 		fprintf(stderr, "hsh: %s: command not found\n", args[0]);
-		return (1);
+		return (127);
 	}
 
 	pid = fork();
