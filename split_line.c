@@ -21,20 +21,18 @@ char **split_line(char *line)
 	token = strtok(line, " \t\r\n\a");
 	while (token != NULL)
 	{
-		tokens[position++] = token;
-		if (position >= bufsize)
+		if (position < bufsize)
 		{
-			bufsize *= 2;
-			tokens = realloc(tokens, bufsize * sizeof(char *));
-			if (!tokens)
-			{
-				perror("allocation error");
-				exit(EXIT_FAILURE);
-			}
+			tokens[position++] = token;
 		}
+		else
+		{
+
+			break;
+		}
+
 		token = strtok(NULL, " \t\r\n\a");
 	}
 	tokens[position] = NULL;
 	return (tokens);
 }
-
