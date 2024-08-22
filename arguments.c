@@ -16,38 +16,10 @@ void print_usage(const char *program_name)
 
 void print_arguments(char **av)
 {
-	printf("Arguments:\n");
-	while (*av != NULL)
+	int i;
+
+	for (i = 1; av[i] !=NULL; i++)
 	{
-		printf("%s\n", *av);
-		av++;
+	printf("Argument %d: %s\n", i, av[i]);
 	}
-}
-
-/**
- * Main function
- */
-
-int main(int ac, char **av)
-{
-	/**
-	 * supress unused parameter warning
-	 */
-	(void)ac;
-
-	/**
-	 * Check if no arguments are provided
-	 */
-	if (av[1] == NULL)
-	{
-		print_usage(av[0]);
-		return 1;
-	}
-
-	/**
-	 * Print all arguments
-	 */
-	print_arguments(av);
-
-	return 0;
 }
