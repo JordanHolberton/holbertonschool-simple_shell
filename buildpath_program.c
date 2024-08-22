@@ -3,13 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-/**
- * _getenv - Gets the value of an environment variable.
- * @name: The name of the environment variable.
- *
- * Return: The value of the environment variable, or NULL if not found.
- */
-
 char *_getenv(const char *name)
 {
 	extern char **environ;
@@ -34,7 +27,7 @@ char *_getenv(const char *name)
 			value = strdup(env_var + name_len + 1);
 			if (value == NULL)
 			{
-				perror("strdup");
+				fprintf(stderr, "Error: strdup failed\n");
 				return NULL;
 			}
 			return value;
@@ -44,26 +37,19 @@ char *_getenv(const char *name)
 	return NULL;
 }
 
-/**
- * create_path_node - Creates a new node for the linked list.
- * @dir: The directory path.
- *
- * Return: Pointer to the new node, or NULL if memory allocation fails.
- */
-
 path_node_t *create_path_node(const char *dir)
 {
 	path_node_t *new_node = malloc(sizeof(path_node_t));
 	if (new_node == NULL)
 	{
-		perror("malloc");
+		fprintf(stderr, "Error: malloc failed\n");
 		return NULL;
 	}
 
 	new_node->dir = strdup(dir);
 	if (new_node->dir == NULL)
 	{
-		perror("strdup");
+		fprintf(stderr, "Error: strdup failed\n");
 		free(new_node);
 		return NULL;
 	}
@@ -71,12 +57,6 @@ path_node_t *create_path_node(const char *dir)
 	new_node->next = NULL;
 	return new_node;
 }
-
-/**
- * build_path_list - Builds a linked list of the PATH directories.
- *
- * Return: Pointer to the head of the linked list, or NULL if memory allocation fails.
- */
 
 path_node_t *build_path_list(void)
 {
@@ -97,7 +77,6 @@ path_node_t *build_path_list(void)
 		path_node_t *new_node = create_path_node(dir);
 		if (new_node == NULL)
 		{
-			/* Free previously allocated nodes if memory allocation fails */
 			while (head != NULL)
 			{
 				current = head;
@@ -127,11 +106,6 @@ path_node_t *build_path_list(void)
 	return head;
 }
 
-/**
- * print_path_list - Prints the linked list of PATH directories.
- * @head: Pointer to the head of the linked list.
- */
-
 void print_path_list(path_node_t *head)
 {
 	path_node_t *current = head;
@@ -141,11 +115,6 @@ void print_path_list(path_node_t *head)
 		current = current->next;
 	}
 }
-
-/**
- * free_path_list - Frees the linked list of PATH directories.
- * @head: Pointer to the head of the linked list.
- */
 
 void free_path_list(path_node_t *head)
 {
@@ -159,29 +128,4 @@ void free_path_list(path_node_t *head)
 		free(current);
 		current = next;
 	}
-}
-
-/**
- * main - Entry point of the program.
- * @ac: The number of arguments.
- * @av: The list of arguments.
- *
- * Return: Always 0.
- */
-
-int main(int ac, char **av)
-{
-	(void)ac; /* Unused parameter */
-	(void)av; /* Unused parameter */
-
-	path_node_t *path_list;
-
-	path_node_t = build_path_list();
-	if (path_list != NULL)
-	{
-		print_path_list(path_list);
-		free_path_list(path_list);
-	}
-
-	return 0;
 }
