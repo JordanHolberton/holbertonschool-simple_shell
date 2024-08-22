@@ -1,5 +1,10 @@
 #include "supershell.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 /**
  * print_environment - Prints the environment variables.
@@ -31,23 +36,15 @@ int main(int ac, char **av, char **env)
 
 	print_environment(env);
 
-	/**
-	 * Check if no arguments are provided
-	 */
 	if (av[1] == NULL)
 	{
 		print_usage(av[0]);
 		return 1;
 	}
 
-	/**
-	 * Print all arguments
-	 */
 	print_arguments(av);
 
-	path_node_t *path_list;
-
-	path_node_t = build_path_list();
+	path_node_t *path_list = build_path_list();
 	if (path_list != NULL)
 	{
 		print_path_list(path_list);
@@ -55,9 +52,7 @@ int main(int ac, char **av, char **env)
 	}
 
 	char command[256];
-	char *path;
-
-	path = get_path();
+	char *path = get_path();
 	if (!path)
 	{
 		fprintf(stderr, "PATH environment variable not set\n");
@@ -115,16 +110,12 @@ int main(int ac, char **av, char **env)
 	my_pid = getpid();
 	if (pid == 0)
 	{
-		/**
-		 * child process
-		 */
+		/* child process */
 		print_pid(my_pid, "Child");
 	}
 	else
 	{
-		/**
-		 * parent process
-		 */
+		/* parent process */
 		print_pid(my_pid, "Parent");
 	}
 
@@ -134,7 +125,7 @@ int main(int ac, char **av, char **env)
 
 	for (i = 0; i < num_children; i++)
 	{
-		pid_t child_pid = fork();
+		child_pid = fork();
 		if (child_pid == -1)
 		{
 			handle_fork_error();
@@ -143,16 +134,12 @@ int main(int ac, char **av, char **env)
 
 		if (child_pid == 0)
 		{
-			/**
-			 * Child process
-			 */
+			/* Child process */
 			child_process();
 		}
 		else
 		{
-			/**
-			 * Parent process
-			 */
+			/* Parent process */
 			parent_process(child_pid);
 		}
 	}
@@ -174,7 +161,7 @@ int main(int ac, char **av, char **env)
 		printf("%s: NOT FOUND\n", av[1]);
 	}
 
-		int id = fork();
+	pid_t id = fork();
 	if (id == 0)
 	{
 		child_process();
@@ -184,37 +171,30 @@ int main(int ac, char **av, char **env)
 		parent_process(id);
 	}
 
-
-	if (argc < 2)
+	if (ac < 2)
 	{
-		print_usage(argv[0]);
+		print_usage(av[0]);
 		return 1;
 	}
-	process_files(argc, argv);
+	process_files(ac, av);
 
 	print_environment();
 
-		while (1)
+	while (1)
 	{
 		print_prompt();
 		char *command = read_line();
 
 		if (command == NULL)
 		{
-			/**
-			 *  End-of-file (EOF) or error encountered
-			 */
+			/* End-of-file (EOF) or error encountered */
 			break;
 		}
 
-		/**
-		 *  Print the command
-		 */
+		/* Print the command */
 		printf("%s", command);
 
-		/**
-		 *  Free the allocated memory
-		 */
+		/* Free the allocated memory */
 		free(command);
 	}
 
@@ -246,26 +226,21 @@ int main(int ac, char **av, char **env)
 		return 1;
 	}
 
-	/**
-	 * Print the words
-	 */
+	/* Print the words */
 	for (i = 0; i < word_count; i++)
 	{
 		printf("Word %d: %s\n", i + 1, words[i]);
 	}
 
-	/**
-	 * Free the allocated memory
-	 */
+	/* Free the allocated memory */
 	free_words(words, word_count);
 
-
-	if (argc < 2)
+	if (ac < 2)
 	{
-		print_usage(argv[0]);
+		print_usage(av[0]);
 		return 1;
 	}
-	process_files(argc, argv);
+	process_files(ac, av);
 
 	while (1)
 	{
@@ -274,15 +249,11 @@ int main(int ac, char **av, char **env)
 
 		if (command == NULL)
 		{
-			/**
-			 * End-of-file (EOF) or error encountered
-			 */
+			/* End-of-file (EOF) or error encountered */
 			break;
 		}
 
-		/**
-		 * Remove the newline character from the command
-		 */
+		/* Remove the newline character from the command */
 		for (size_t i = 0; command[i] != '\0'; i++)
 		{
 			if (command[i] == '\n')
@@ -297,9 +268,7 @@ int main(int ac, char **av, char **env)
 			execute_command(command);
 		}
 
-		/**
-		 * Free the allocated memory
-		 */
+		/* Free the allocated memory */
 		free(command);
 	}
 
@@ -329,16 +298,12 @@ int main(int ac, char **av, char **env)
 
 	if (child_pid == 0)
 	{
-		/**
-		 * Child process
-		 */
+		/* Child process */
 		child_process();
 	}
 	else
 	{
-		/**
-		 * Parent process
-		 */
+		/* Parent process */
 		parent_process(child_pid);
 	}
 
